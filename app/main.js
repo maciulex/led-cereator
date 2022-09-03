@@ -344,7 +344,7 @@ class Program {
                             let blue  = this.scaleToRange(0, maxBrightness, this.frames[frame]['pixels'][x][y].blue);
                             orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = 
                                 ` {${red},${green},${blue}} `;
-                                //orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = `${x}, ${y}`;
+                                orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = `${x}, ${y}`;
                         }
                     }
                     console.log(orderedArrayOfPixels);
@@ -370,8 +370,7 @@ class Program {
         var framesAmount = this.frames.length;
         switch (how) {
             case 1:
-                for (let x = 0; x < this.width; x++) {
-                    for (let y = 0; y < this.height; y++) {
+
                         var counter = 0;
                         for (let frame = 0; frame < framesAmount; frame++) {
                             for (let y = 0; y < this.height; y++) {
@@ -387,8 +386,7 @@ class Program {
                                     }
                                 }
                             }
-                        }
-                    }
+
                 }
             break;
             case 2:
