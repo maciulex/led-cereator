@@ -311,11 +311,21 @@ class Program {
 
     }
 
+    scaleToRange(rangeMin, rangeMax, number) {
+        let a = 0;
+        let b = 255;
+        let c = rangeMin;
+        let d = rangeMax;    
+        let result = (b*c-a*d)/(b-a)+number*(d-c)/(b-a);
+        console.log(rangeMin, rangeMax, number, result);
+        return Math.floor(result);
+    }
+
     eksport() {
         var eksportType    = parseInt(document.querySelector("#eksportType").value);
-        var eksportLedWire = parseInt(document.querySelector("#eksportLedWireStyle").value);
-
-        var destynation = document.querySelector('#eksportDST');
+        var programExample = document.querySelector("#typicalProgram");
+        var maxBrightness  = parseInt(document.querySelector("#maksBright").value);
+        var destynation    = document.querySelector('#eksportDST');
         var result = "";
         switch (eksportType) {
             case 1:
@@ -329,8 +339,11 @@ class Program {
                     else result += `{`;
                     for (let x = 0; x < this.width; x++) {
                         for (let y = 0; y < this.height; y++) {
+                            let red   = this.scaleToRange(0, maxBrightness, this.frames[frame]['pixels'][x][y].red);
+                            let green = this.scaleToRange(0, maxBrightness, this.frames[frame]['pixels'][x][y].green);
+                            let blue  = this.scaleToRange(0, maxBrightness, this.frames[frame]['pixels'][x][y].blue);
                             orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = 
-                                ` {${this.frames[frame]['pixels'][x][y].red},${this.frames[frame]['pixels'][x][y].green},${this.frames[frame]['pixels'][x][y].blue}} `;
+                                ` {${red},${green},${blue}} `;
                                 //orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = `${x}, ${y}`;
                         }
                     }
@@ -348,6 +361,7 @@ class Program {
         }
         result += '};';
         destynation.innerHTML = result;
+        programExample.innerHTML = result
 
     }
     reIndexPixels(how) {
