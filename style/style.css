@@ -1,0 +1,168 @@
+body {
+  display: -ms-grid;
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -ms-grid-rows: 5fr 5fr 15fr 70fr;
+      grid-template-rows: 5fr 5fr 15fr 70fr;
+}
+
+body .eksport {
+  position: absolute;
+  width: 90vw;
+  height: 95vh;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  justify-items: center;
+  border: 1px solid black;
+  background-color: white;
+  z-index: 9999;
+}
+
+body .eksport section {
+  width: 50%;
+  height: 50vh;
+  overflow: scroll;
+  border: 1px solid black;
+  padding: 25px;
+  -webkit-user-select: all;
+     -moz-user-select: all;
+      -ms-user-select: all;
+          user-select: all;
+}
+
+body h1 {
+  width: 100%;
+  text-align: center;
+  font-size: 300%;
+}
+
+body .size {
+  width: 100%;
+  font-size: larger;
+}
+
+body .size form, body .size .frameStatusAlign {
+  margin-left: 25px;
+  display: inline-block;
+  float: left;
+}
+
+body .tools {
+  width: 100%;
+  height: 100%;
+}
+
+body .tools .tool-box, body .tools .color-box {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+}
+
+body .tools .tool-box {
+  float: left;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+}
+
+body .tools .tool-box .tool {
+  display: -ms-grid;
+  display: grid;
+  font-size: 2.1vh;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid black;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+body .tools .tool-box .tool select {
+  width: 50%;
+  display: inline;
+  text-align: center;
+}
+
+body .tools .color-box {
+  float: right;
+}
+
+body .tools .color-box .mainFrameCell div {
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+}
+
+body .tools .color-box .mainFrameCell div .palleteChoseBox, body .tools .color-box .mainFrameCell div .palleteChoseInput {
+  width: 100%;
+  height: 100%;
+  -ms-grid-row: 1;
+      grid-row-start: 1;
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+}
+
+body .tools .color-box .mainFrameCell div .palleteChoseBox {
+  z-index: 2;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+body .tools .color-box .mainFrameCell div .palleteChoseInput {
+  z-index: 1;
+  cursor: pointer;
+}
+
+body main {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+body main table {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+body main table td {
+  border: 1px solid black;
+}
+
+body table {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 100%;
+}
+
+body table td {
+  margin: 2px;
+  display: inline-block;
+}
+/*# sourceMappingURL=style.css.map */

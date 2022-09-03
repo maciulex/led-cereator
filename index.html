@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Projektowanie ledów</title>
+
+    <script src="app/main.js" defer="true"></script>
+
+</head>
+<body>
+
+    <div style='display:none;' class="eksport">
+        <h1>EKSPORT</h1><br>
+        <div>
+            <button onclick="PROGRAM.eksportOpen(false);">Zamknij</button>
+            <select id="eksportType">
+                <option value="1">Jeden Array</option>
+                <option value="2">Array na klatke</option>
+            </select>
+
+            <button onclick="PROGRAM.eksport()">GENERUJ</button>
+        </div>
+        <section id="eksportDST">
+           
+        </section>
+        <div>
+            <div>Przykładowy program</div>
+            <div style="user-select: all;">
+                #include  &lt;Adafruit_NeoPixel.h><br> 
+                #define PIN       0<br> 
+                #define NUMPIXELS 8 <br>
+                <br>
+                Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);<br>
+                <br>
+                #define DELAYVAL 500 // Time (in milliseconds) to pause between pixels<br>
+                <br>
+                //Tutaj to co wygenerowała przeglądarka<br>
+                <br>
+                uint8_t frame = 0;<br>
+                <br>
+                void setup() {<br>
+                  pixels.begin();<br>
+                }<br>
+                <br>
+                void loop() {<br>
+                  for(int i = 0; i < FRAMESIZE; i++) {<br>
+                    pixels.setPixelColor(i, pixels.Color(frames[frame][i][0], frames[frame][i][1], frames[frame][i][2]));<br>
+                    pixels.show();<br>
+                  }<br>
+                  frame += 1;<br>
+                  if (frame == FRAMESNUMBER) frame = 0;<br>
+                  delay(DELAYVAL);<br>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <h1>Projektowanie ledów</h1>
+    <section class="size">
+        <form onsubmit="return false;">
+            <label for="width">Szerokość</label><input type="number" min="0" id="width" value="8">
+            <label for="hight">Wysokość</label><input type="number" min="0" id="hight" value="1">
+            <button type="submit" onclick="init(this.form);">Twórz</button>
+        </form>
+        <section id="frameStatus" class="frameStatusAlign">
+            <div class="frameStatusAlign">Klatka: &nbsp;</div>
+            <div id="frameActive" class="frameStatusAlign">0</div>
+            <div class="frameStatusAlign">/</div>
+            <div id="allFrames" class="frameStatusAlign">0</div>
+        </section>
+    </section>
+    <section class="tools">
+        <section class="tool-box">
+            <div class="tool" onclick="PROGRAM.createNewFrame();">Nowa klatka</div>
+            <div class="tool" onclick="PROGRAM.pastePreviusFrame();">Wklej poprzednią klatke</div>
+            <div class="tool" onclick="PROGRAM.moveToNextFrame();">klatka ></div>
+            <div class="tool" onclick="PROGRAM.moveToPreviousFrame();">klatka <</div>
+            <div class="tool" onclick="PROGRAM.eksportOpen();">Eksportuj</div>
+            <div class="tool" onclick="PROGRAM.deleteFrame(PROGRAM.activeFrame)">Usuń klatke</div>
+            <div class="tool">
+                <div>
+                    F(x) 
+                    <select id="mathSymbole">
+                        <option value="0">=</option>
+                        <option value="1">></option>
+                        <option value="2"><</option>
+                        <option value="3">>=</option>
+                        <option value="4"><=</option>
+                    </select>
+                </div>
+                <input type="text" id="mathExpression" placeholder="można ^*/+-" value="2+2">
+                <button onclick='PROGRAM.doMathExpression(
+                    document.querySelector("#mathSymbole").value,
+                    document.querySelector("#mathExpression").value
+                    )'>Działaj</button>
+            </div>
+            <div class="tool">Przesuń X <input type="number" id="XShift" value="0"><button onclick='PROGRAM.shiftX(parseInt(document.querySelector("#XShift").value));'>Zastosuj</button></div>
+            <div class="tool">Przesuń Y <input type="number" id="YShift" value="0"><button onclick='PROGRAM.shiftY(parseInt(document.querySelector("#YShift").value));'>Zastosuj</button></div>
+            <div class="tool">Zapętlanie krawędzi <input type="checkbox" id="edgesLoop" checked></div>
+            <div class="tool">Maks jasność <input type="number" id="maksBright" value="255" max="255" min="0"></div>
+            <div class="tool">-</div>
+
+        </section>
+        <section class="color-box">
+
+        </section>
+    </section>
+    <main>
+
+    </main>
+</body>
+</html>

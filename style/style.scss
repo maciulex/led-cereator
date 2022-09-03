@@ -1,0 +1,136 @@
+body {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+
+    user-select: none;
+
+    grid-template-rows: 5fr 5fr 15fr 70fr;
+
+    .eksport {
+        position: absolute;
+        width: 90vw;
+        height: 95vh;
+        align-self: center;
+        align-items: center;
+        justify-self: center;
+        justify-items: center;
+        border: 1px solid black;
+
+        background-color: white;
+        z-index: 9999;
+
+        section {
+            width: 50%;
+            height: 50vh;
+            overflow: scroll;
+            border: 1px solid black;
+            padding: 25px;
+            user-select: all;
+        }
+    }
+
+    h1 {
+        width: 100%;
+
+        text-align: center;
+        font-size: 300%;
+    }
+
+    .size {
+        width: 100%;
+        font-size: larger;
+        form, .frameStatusAlign  {
+            margin-left: 25px;
+            display: inline-block;
+            float: left;
+        }
+
+
+    }
+
+    .tools {
+        width: 100%;
+        height: 100%;
+
+        .tool-box, .color-box {
+            display: inline-block;
+            width: 50%;
+            height: 100%;
+        }
+
+        .tool-box {
+            float: left;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            .tool {
+                display: grid;
+                font-size: 2.1vh;
+                cursor: pointer;
+                padding: 10px;
+                border: 1px solid black;
+
+                justify-content: center;
+                align-content: center;
+                select {
+                    width: 50%;
+                    display: inline;
+                    text-align: center;
+                }
+            }
+        }
+
+        .color-box {
+            float: right;
+            .mainFrameCell{
+                div {
+                    width:100%; 
+                    height:100%; 
+                    display: grid;
+
+                    .palleteChoseBox, .palleteChoseInput{
+                        width:100%; 
+                        height:100%; 
+
+                        grid-row-start: 1;
+                        grid-column-start: 1;
+                    }
+
+                    .palleteChoseBox {
+                        z-index: 2;
+                        cursor: grab;
+                    }
+
+                    .palleteChoseInput {
+                        z-index: 1; 
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    main {
+        display: grid;
+        
+        justify-content: center;
+        align-content: center;
+        table {
+            width: fit-content;
+            height: fit-content;
+            td {
+                border: 1px solid black;
+            }
+        }
+    }
+    table {
+        width: fit-content;
+        height: 100%;
+        td {
+            margin: 2px;
+            display: inline-block;
+        }
+    }
+}
