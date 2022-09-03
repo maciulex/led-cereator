@@ -20,7 +20,6 @@
                 <option value="1">Jeden Array</option>
                 <option value="2">Array na klatke</option>
             </select>
-
             <button onclick="PROGRAM.eksport()">GENERUJ</button>
         </div>
         <section id="eksportDST">
@@ -102,7 +101,13 @@
             <div class="tool">Przesuń Y <input type="number" id="YShift" value="0"><button onclick='PROGRAM.shiftY(parseInt(document.querySelector("#YShift").value));'>Zastosuj</button></div>
             <div class="tool">Zapętlanie krawędzi <input type="checkbox" id="edgesLoop" checked></div>
             <div class="tool">Maks jasność <input type="number" id="maksBright" value="255" max="255" min="0"></div>
-            <div class="tool">-</div>
+            <div class="tool">            
+                Jak są podłączone ledy
+                <select id="eksportLedWireStyle" onchange="PROGRAM.reIndexPixels(this.value)">
+                    <option value="1">od lewej do prawej od prawej do lewej i tak na zmiane</option>
+                    <option value="2">od lewej do prawej</option>
+                </select>
+            </div>
 
         </section>
         <section class="color-box">

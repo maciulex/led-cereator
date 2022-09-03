@@ -312,7 +312,9 @@ class Program {
     }
 
     eksport() {
-        var eksportType = parseInt(document.querySelector("#eksportType").value);
+        var eksportType    = parseInt(document.querySelector("#eksportType").value);
+        var eksportLedWire = parseInt(document.querySelector("#eksportLedWireStyle").value);
+
         var destynation = document.querySelector('#eksportDST');
         var result = "";
         switch (eksportType) {
@@ -328,11 +330,11 @@ class Program {
                     for (let x = 0; x < this.width; x++) {
                         for (let y = 0; y < this.height; y++) {
                             orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = 
-                                `
-                                    {${this.frames[frame]['pixels'][x][y].red},${this.frames[frame]['pixels'][x][y].green},${this.frames[frame]['pixels'][x][y].blue}}
-                                `;
+                                ` {${this.frames[frame]['pixels'][x][y].red},${this.frames[frame]['pixels'][x][y].green},${this.frames[frame]['pixels'][x][y].blue}} `;
+                                //orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = `${x}, ${y}`;
                         }
                     }
+                    console.log(orderedArrayOfPixels);
                     for (let i = 0; i < orderedArrayOfPixels.length; i++) {
                         if (i != 0) result += ",";
                         result += orderedArrayOfPixels[i];
@@ -348,7 +350,46 @@ class Program {
         destynation.innerHTML = result;
 
     }
-
+    reIndexPixels(how) {
+        how = parseInt(how);
+        console.log(how)
+        var framesAmount = this.frames.length;
+        switch (how) {
+            case 1:
+                for (let x = 0; x < this.width; x++) {
+                    for (let y = 0; y < this.height; y++) {
+                        var counter = 0;
+                        for (let frame = 0; frame < framesAmount; frame++) {
+                            for (let y = 0; y < this.height; y++) {
+                                if (y%2 == 0) {
+                                    for (let x = 0; x < this.width; x++) {
+                                        this.frames[frame].pixels[x][y].index = counter;
+                                        counter += 1; 
+                                    }
+                                } else {
+                                    for (let x = this.width-1; x >= 0; x--) {
+                                        this.frames[frame].pixels[x][y].index = counter;
+                                        counter += 1; 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            break;
+            case 2:
+                var counter = 0;
+                for (let frame = 0; frame < framesAmount; frame++) {
+                    for (let x = 0; x < this.width; x++) {
+                        for (let y = 0; y < this.height; y++) {
+                            this.frames[frame][pixels][x][y].index = counter;
+                            counter += 1; 
+                        }
+                    }
+                }
+            break;
+        }
+    }
     constructor(width, height) {
         this.width = width;
         this.height = height;
@@ -363,6 +404,7 @@ class Program {
         this.getFrameCells();
         this.drawFrame(0);
         this.updateFrameCount();
+        this.reIndexPixels(document.querySelector("#eksportLedWireStyle").value);
     }
 }
 
