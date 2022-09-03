@@ -344,7 +344,7 @@ class Program {
                             let blue  = this.scaleToRange(0, maxBrightness, this.frames[frame]['pixels'][x][y].blue);
                             orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = 
                                 ` {${red},${green},${blue}} `;
-                                orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = `${x}, ${y}`;
+                                //orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = `${x}, ${y}`;
                         }
                     }
                     console.log(orderedArrayOfPixels);
@@ -370,23 +370,21 @@ class Program {
         var framesAmount = this.frames.length;
         switch (how) {
             case 1:
-
-                        var counter = 0;
-                        for (let frame = 0; frame < framesAmount; frame++) {
-                            for (let y = 0; y < this.height; y++) {
-                                if (y%2 == 0) {
-                                    for (let x = 0; x < this.width; x++) {
-                                        this.frames[frame].pixels[x][y].index = counter;
-                                        counter += 1; 
-                                    }
-                                } else {
-                                    for (let x = this.width-1; x >= 0; x--) {
-                                        this.frames[frame].pixels[x][y].index = counter;
-                                        counter += 1; 
-                                    }
-                                }
+                var counter = 0;
+                for (let frame = 0; frame < framesAmount; frame++) {
+                    for (let y = 0; y < this.height; y++) {
+                        if (y%2 == 0) {
+                            for (let x = 0; x < this.width; x++) {
+                                this.frames[frame].pixels[x][y].index = counter;
+                                counter += 1; 
                             }
-
+                        } else {
+                            for (let x = this.width-1; x >= 0; x--) {
+                                this.frames[frame].pixels[x][y].index = counter;
+                                counter += 1; 
+                            }
+                        }
+                    }
                 }
             break;
             case 2:
