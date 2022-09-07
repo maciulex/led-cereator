@@ -324,6 +324,7 @@ class Program {
     eksport() {
         var eksportType    = parseInt(document.querySelector("#eksportType").value);
         var programExample = document.querySelector("#typicalProgram");
+        var pixelsAmount    = document.querySelector("#pixelamount");
         var maxBrightness  = parseInt(document.querySelector("#maksBright").value);
         var destynation    = document.querySelector('#eksportDST');
         var result = "";
@@ -356,12 +357,33 @@ class Program {
                 }
             break;
             case 2:
+                var framesAmount = this.frames.length;
+                var frameSize = this.width*this.height;
+                result += `#define FRAMESNUMBER ${framesAmount}<br>#define FRAMESIZE ${frameSize}<br>`;
+                result += `uint8_t frames[${framesAmount}][${frameSize}][3] = {`;
+                for (let frame = 0; frame < framesAmount; frame++) {
+                    if (frame != 0) result += `,{`;
+                    else result += `{`;
+                    for (let x = 0; x < this.width; x++) {
+                        for (let y = 0; y < this.height; y++) {
+                            let red   = this.scaleToRange(0, maxBrightness, this.frames[frame]['pixels'][x][y].red);
+                            let green = this.scaleToRange(0, maxBrightness, this.frames[frame]['pixels'][x][y].green);
+                            let blue  = this.scaleToRange(0, maxBrightness, this.frames[frame]['pixels'][x][y].blue);
+                            if (x != 0) result += ",";
+                            result += 
+                                ` {${red},${green},${blue}} `;
+                                //orderedArrayOfPixels[this.frames[frame]['pixels'][x][y].index] = `${x}, ${y}`;
+                        }
+                    }
 
+                    result += `}`;
+                }
             break;
         }
         result += '};';
         destynation.innerHTML = result;
         programExample.innerHTML = result
+        pixelsAmount.innerHTML = this.width*this.height;
 
     }
     reIndexPixels(how) {
