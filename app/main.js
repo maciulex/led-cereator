@@ -138,8 +138,8 @@ class Program {
     evaluateExpressionValue(expression,x) {
         let numbers = [];
         let symbols = [];
-
-
+        if (expression.length == 0) return null;
+        if (expression.length < 2) return parseInt(expression);
         let numberTmp = "";
         for (let i = 0; i < expression.length; i++) {
             switch (expression[i]) {
@@ -208,6 +208,7 @@ class Program {
 
         for (let x = 0; x < this.width; x++) {
             let y = this.evaluateExpressionValue(expression, x);
+            if (y == null || y == NaN) return;
             switch (mathSymbole) {
                 //<
                 case "4":
