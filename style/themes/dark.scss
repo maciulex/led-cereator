@@ -1,0 +1,33 @@
+body.dark {
+    background-color: #0E131F;
+    color: white;
+    input, button {
+        background-color: #59546C;
+        color: white;
+    }
+    .eksport {
+        border-color: #8B939C;
+        background-color: #38405F;
+
+        section {
+            border-color: #38405F;
+        }
+    }
+
+    .tools {
+       
+        .tool-box {
+            .tool {
+                border-color: #8B939C;
+            }
+        }
+    }
+
+    main {
+        table {
+            td {
+                border-color: #8B939C;
+            }
+        }
+    }
+}

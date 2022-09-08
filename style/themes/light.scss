@@ -1,0 +1,33 @@
+
+body.light {
+    background-color: white;
+    color: black;
+    input, button {
+        background-color: white;
+        color: black;
+    }
+    .eksport {
+        border-color: black;
+        background-color: white;
+
+        section {
+            border-color: black;
+        }
+    }
+
+    .tools {
+        .tool-box {
+            .tool {
+                border-color: black;
+            }
+        }
+    }
+
+    main {
+        table {
+            td {
+                border-color: black;
+            }
+        }
+    }
+}

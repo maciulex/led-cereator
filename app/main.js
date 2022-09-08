@@ -1,5 +1,5 @@
 var PROGRAM;
-
+var lightTheme = true;
 class Program {
     width  = 0;
     height = 0;
@@ -12,11 +12,12 @@ class Program {
     frames  = [];
 
     config = new Config;
-
+    
     selectedColorIndex = -1;
     activeFrame = 0;
-
+    
     fastDragMode = false;
+    fillTool = false;
 
     drawFrame(frameIndex) {
         for (var x = 0; x < this.width; x++) {
@@ -50,17 +51,39 @@ class Program {
     }
 
     mainFrameCellHover(x, y) {
-        if (!this.fastDragMode) return;
+        if (!this.fastDragMode || this.fillTool) return;
         if (this.selectedColorIndex == -1) return;
     
         this.pixelChangeColorOnActive(x,y);
     }
 
-    mainFrameCellClicked(x, y) {
-        if (this.selectedColorIndex == -1) return;
-        this.pixelChangeColorOnActive(x,y);
+    changeFillTool() {
+        this.fillTool = !this.fillTool;
     }
 
+    mainFrameCellClicked(x, y) {
+        if (this.selectedColorIndex == -1) return;
+        if (this.fillTool) return this.fillToolEval(x,y);
+        this.pixelChangeColorOnActive(x,y);
+    }
+    
+    fillToolEval(x,y) {
+        console.log(this.pixelGetColor(x,y))
+        this.recFill(x,y,this.pixelGetColor(x,y), 0);
+    }
+    recFill(x, y, color, deep) {
+        deep += 1;
+        if (x < 0 || x >= this.width || y < 0 || y >= this.height) 
+            return; 
+        if (this.pixelGetColor(x,y) != color) 
+            return; 
+
+        this.pixelChangeColorOnActive(x,y);
+        this.recFill(x+1, y, color, deep); 
+        this.recFill(x-1, y, color, deep); 
+        this.recFill(x, y+1, color, deep); 
+        this.recFill(x, y-1, color, deep); 
+    }
     colorPalleteClick(index) {
         document.querySelector(`#palleteIndex${index} div.palleteChoseBox`).setAttribute("style", "display: none");
         this.selectedColorIndex = index;
@@ -70,6 +93,10 @@ class Program {
         document.querySelector(`#palleteIndex${index} div.palleteChoseBox`).removeAttribute("style", "display: none");
     }
 
+    pixelGetColor(x,y) {
+        return this.frames[this.activeFrame].pixels[x][y].getColor32();
+    }
+    
     getColourPallete() {
         this.initBaseColour();
 
@@ -229,9 +256,8 @@ class Program {
         if (this.config.focusFrameDoc.clientWidth / this.width > this.config.focusFrameDoc.clientHeight / this.height) this.cellSize = this.config.focusFrameDoc.clientHeight / this.height;
         else this.cellSize = this.config.focusFrameDoc.clientWidth / this.width;
         
-        this.cellSize -= 10; //margin;
+        this.cellSize -= 5; //margin;
         this.cellSize = Math.floor(this.cellSize);
-        console.log(this.cellSize);
         let tableContent = "";
         for (var y = 0; y < this.height; y++) {
             tableContent += `<tr>`;
@@ -442,7 +468,8 @@ class Program {
 
 class Frame {
     pixels = [];
-
+    widht = 0;
+    height = 0;
     swapPixel(x1, y1, x2, y2) {
         let colour1 = [this.pixels[x1][y1].red, this.pixels[x1][y1].green, this.pixels[x1][y1].blue];
         let colour2 = [this.pixels[x2][y2].red, this.pixels[x2][y2].green, this.pixels[x2][y2].blue];
@@ -455,6 +482,7 @@ class Frame {
         if (shift == 0) return;
 
         let positive = (shift * -1 > 0) ? true : false;
+        if (shift > this.width) shift = shift%this.width;
         shift = Math.abs(shift);
 
 
@@ -481,6 +509,7 @@ class Frame {
         if (shift == 0) return;
 
         let positive = (shift * -1 > 0) ? false : true;
+        if (shift > this.width) shift = shift%this.width;
         shift = Math.abs(shift);
 
         if (positive) {
@@ -517,6 +546,8 @@ class Frame {
                 counter += 1;
             }
         }
+        this.widht = width;
+        this.height = height;
     }
 }
 
@@ -530,6 +561,10 @@ class Pixel {
         this.red = red;
         this.green = green;
         this.blue = blue;
+    }
+
+    getColor32() {
+        return parseInt(this.red +""+ this.green +""+ this.blue);
     }
 
     constructor(red, green, blue, index = 0) {
@@ -573,4 +608,17 @@ function init(form) {
 }
 
 init(document.querySelector("form"));
+
+function themeChange() {
+    var main = document.querySelector("body");
+    if (lightTheme) {
+        main.classList.remove("light");
+        main.classList.add("dark");
+        lightTheme = false;
+        return;
+    } 
+    main.classList.remove("dark");
+    main.classList.add("light");
+    lightTheme = true;
+}
 

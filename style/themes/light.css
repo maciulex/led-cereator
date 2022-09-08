@@ -1,0 +1,27 @@
+body.light {
+  background-color: white;
+  color: black;
+}
+
+body.light input, body.light button {
+  background-color: white;
+  color: black;
+}
+
+body.light .eksport {
+  border-color: black;
+  background-color: white;
+}
+
+body.light .eksport section {
+  border-color: black;
+}
+
+body.light .tools .tool-box .tool {
+  border-color: black;
+}
+
+body.light main table td {
+  border-color: black;
+}
+/*# sourceMappingURL=light.css.map */

@@ -1,0 +1,27 @@
+body.dark {
+  background-color: #0E131F;
+  color: white;
+}
+
+body.dark input, body.dark button {
+  background-color: #59546C;
+  color: white;
+}
+
+body.dark .eksport {
+  border-color: #8B939C;
+  background-color: #38405F;
+}
+
+body.dark .eksport section {
+  border-color: #38405F;
+}
+
+body.dark .tools .tool-box .tool {
+  border-color: #8B939C;
+}
+
+body.dark main table td {
+  border-color: #8B939C;
+}
+/*# sourceMappingURL=dark.css.map */
