@@ -1,5 +1,7 @@
 var PROGRAM;
 var lightTheme = true;
+var fillTool = false;
+
 class Program {
     width  = 0;
     height = 0;
@@ -17,7 +19,6 @@ class Program {
     activeFrame = 0;
     
     fastDragMode = false;
-    fillTool = false;
 
     drawFrame(frameIndex) {
         for (var x = 0; x < this.width; x++) {
@@ -51,19 +52,19 @@ class Program {
     }
 
     mainFrameCellHover(x, y) {
-        if (!this.fastDragMode || this.fillTool) return;
+        if (!this.fastDragMode || fillTool) return;
         if (this.selectedColorIndex == -1) return;
     
         this.pixelChangeColorOnActive(x,y);
     }
 
     changeFillTool() {
-        this.fillTool = !this.fillTool;
+        fillTool = !fillTool;
     }
 
     mainFrameCellClicked(x, y) {
         if (this.selectedColorIndex == -1) return;
-        if (this.fillTool) return this.fillToolEval(x,y);
+        if (fillTool) return this.fillToolEval(x,y);
         this.pixelChangeColorOnActive(x,y);
     }
     
@@ -212,31 +213,40 @@ class Program {
             switch (mathSymbole) {
                 //<
                 case "4":
+                    if (!this.isOnBoar(x,y-1)) continue;
                     this.pixelChangeColorOnActive(x,y-1);
                 case "2":
                     console.log(y);
                     for (let i = y; i < this.height; i++) {
                         console.log(x,i);
+                        if (!this.isOnBoar(x,i)) continue;
                         this.pixelChangeColorOnActive(x,i);
                     }
                 break;
                 //>
                 case "3":
+                    if (!this.isOnBoar(x,y-1)) continue;
                     this.pixelChangeColorOnActive(x,y-1);
                 case "1":
                     for (let i = 0; i < this.height; i++) {
                         if (!(i < y-1)) continue;
+                        if (!this.isOnBoar(x,i)) continue;
                         this.pixelChangeColorOnActive(x,i);
                     }
                 break;
                 case "0":
+                    if (!this.isOnBoar(x,y-1)) continue;
                     this.pixelChangeColorOnActive(x,y-1);
                 break;
             }
         }
 
     }
-
+    isOnBoar(x,y) {
+        if (this.width <= x || x < 0) return false;
+        if (this.height <= y || y < 0) return false;
+        return true;
+    }
     initBaseColour() {
         this.colours.push(new Pixel(255,255,255));
         this.colours.push(new Pixel(0,0,0));
